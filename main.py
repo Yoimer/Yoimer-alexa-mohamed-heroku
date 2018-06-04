@@ -54,7 +54,6 @@ def stop():
 ##########ask for temperature##########
 # voice commands are:
 #Alexa, ask project system for temperature
-#Alexa, give me temperature from project system
 
 # check temperature
 @ask.intent("TemperatureIntent")
@@ -80,7 +79,6 @@ def get_temperature():
 ##########ask for humidity##########
 # voice commands are:
 #Alexa, ask project system for humidity
-#Alexa, give me humidity from project system
 
 # check humidity
 @ask.intent("HumidityIntent")
@@ -106,7 +104,6 @@ def get_humidity():
 ##########ask for full process variable status##########
 # voice commands are:
 #Alexa, ask project system for full status
-#Alexa, give me full status from project system
 
 # check any process variable on system
 @ask.intent("FullStatusIntent")
@@ -147,11 +144,11 @@ def help():
 
     help_list = [
 
-                    "temperature say... alexa give me temperature from project system...",
+                    "temperature say... alexa ask project system for temperature...",
 
-                    "humidity say... alexa give me humidity from project system...",
+                    "humidity say... alexa ask project system for humidity...",
 
-                    "the whole variable process say... alexa give me full status from project system..."
+                    "the whole variable process say... alexa ask project system for full status..."
                 ]
 
     # say a radom msg from help_list
