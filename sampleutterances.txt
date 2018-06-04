@@ -1,4 +1,3 @@
-OnIntent on
-OffIntent off
 TemperatureIntent temperature
 HumidityIntent humidity
+FullStatusIntent fullstatus

@@ -1,7 +1,4 @@
-welcome: Welcome to memory game. I'm going to say three numbers for you to repeat backwards. Ready?
-
-round: Can you repeat the numbers {{ numbers|join(", ") }} backwards?
-
-win: Good job!
-
-lose: Sorry, that's the wrong answer.
+welcome: Welcome to ubidot system skill for getting humidity and temperature from www.ubidots.com.
+         To ask for temperature say... alexa give me temperature from ubidot system...
+         To ask for humidity say... alexa give me humidity from ubidot system...
+         To ask for the whole variable process say... alexa give me fullstatus from ubidot system
