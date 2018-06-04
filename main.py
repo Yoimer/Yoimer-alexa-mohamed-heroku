@@ -1,7 +1,7 @@
 import logging
 
-from random import randint
-
+import random
+#from random import randint
 from flask import Flask, render_template
 
 from flask_ask import Ask, statement, question, session
@@ -13,23 +13,50 @@ import json
 
 import requests
 
-######################################
-
-
 app = Flask(__name__)
 
 ask = Ask(app, "/")
 
 logging.getLogger("flask_ask").setLevel(logging.DEBUG)
 
-@ask.launch
 
+######################################
+# Skill name: project
+# Invocation Name : project system
+
+
+##########launch skill##########
+# voice commands are:
+#Alexa, launch project system
+
+# launch skill
+@ask.launch
+# read welcome message from template.yaml file
 def launch_app():
 
     welcome_msg = render_template('welcome')
 
-    return statement(welcome_msg)
+    #return statement(welcome_msg)
+    return question(welcome_msg)
 
+
+##########stop skill##########
+# voice commands are:
+# stop
+#Alexa, stop
+
+# stop skill
+#@ask.intent("StopIntent")
+@ask.intent("AMAZON.StopIntent")
+def stop():
+    return statement("Stopping the skill, thanks for using")
+
+##########ask for temperature##########
+# voice commands are:
+#Alexa, ask project system for temperature
+#Alexa, give me temperature from project system
+
+# check temperature
 @ask.intent("TemperatureIntent")
 
 def get_temperature():
@@ -48,6 +75,14 @@ def get_temperature():
 
     return statement(temperature_msg)
 
+
+
+##########ask for humidity##########
+# voice commands are:
+#Alexa, ask project system for humidity
+#Alexa, give me humidity from project system
+
+# check humidity
 @ask.intent("HumidityIntent")
 
 def get_humidity():
@@ -67,6 +102,13 @@ def get_humidity():
     #return statement(data.content)
     return statement(humidity_msg)
 
+
+##########ask for full process variable status##########
+# voice commands are:
+#Alexa, ask project system for full status
+#Alexa, give me full status from project system
+
+# check any process variable on system
 @ask.intent("FullStatusIntent")
 
 def get_full_status():
@@ -94,149 +136,31 @@ def get_full_status():
     return statement(bothvariables_msg)
 
 
+##########ask for help##########
+# voice commands are:
+#help (when welcoming)
+#Alexa ask project system for help (anytime)
+
+# ask for help when welcoming or anytime
+@ask.intent("AMAZON.HelpIntent")
+def help():
+
+    help_list = [
+
+                    "temperature say... alexa give me temperature from project system...",
+
+                    "humidity say... alexa give me humidity from project system...",
+
+                    "the whole variable process say... alexa give me full status from project system..."
+                ]
+
+    # say a radom msg from help_list
+    help_msg = "To ask for " + help_list[random.randint(0,(len(help_list) - 1))]
+    reprompt_msg = "...Please" + help_msg
+    reprompt_msg += "or. say... stop to close the skill"
+    #return statement(help_msg)
+    return question(help_msg).reprompt(reprompt_msg)
+
 if __name__ == '__main__':
 
     app.run(debug=True, host='0.0.0.0')
-
-
-
-# import logging
-
-# from random import randint
-
-# from flask import Flask, render_template
-
-# from flask_ask import Ask, statement, question, session
-
-
-# app = Flask(__name__)
-
-# ask = Ask(app, "/")
-
-# logging.getLogger("flask_ask").setLevel(logging.DEBUG)
-
-
-# @ask.launch
-
-# def new_game():
-
-#     welcome_msg = render_template('welcome')
-
-#     return question(welcome_msg)
-
-
-# @ask.intent("YesIntent")
-
-# def next_round():
-
-#     numbers = [randint(0, 9) for _ in range(3)]
-
-#     round_msg = render_template('round', numbers=numbers)
-
-#     session.attributes['numbers'] = numbers[::-1]  # reverse
-
-#     return question(round_msg)
-
-
-# @ask.intent("AnswerIntent", convert={'first': int, 'second': int, 'third': int})
-
-# def answer(first, second, third):
-
-#     winning_numbers = session.attributes['numbers']
-
-#     if [first, second, third] == winning_numbers:
-
-#         msg = render_template('win')
-
-#     else:
-
-#         msg = render_template('lose')
-
-#     return statement(msg)
-
-# if __name__ == '__main__':
-
-#     app.run(debug=True, host='0.0.0.0')
-
-
-
-
-
-
-
-
-
-
-
-# import logging
-
-# from random import randint
-
-# from flask import Flask, render_template
-
-# from flask_ask import Ask, statement, question, session
-
-# ######################################
-# from flask import Flask
-
-# import json
-
-# import requests
-
-# ######################################
-
-
-# app = Flask(__name__)
-
-# ask = Ask(app, "/")
-
-# logging.getLogger("flask_ask").setLevel(logging.DEBUG)
-
-# @ask.launch
-
-# def launch_app():
-
-#     welcome_msg = render_template('welcome')
-
-#     return statement(welcome_msg)
-
-# @ask.intent("TemperatureIntent")
-
-# def get_temperature():
-#     sess = requests.Session()
-
-#     url = 'https://phpcourse.000webhostapp.com/temperature.txt'
-
-#     data = sess.get(url)
-     
-#     print data.content
-     
-#     print "next line is temperature"
-    
-#     temperature_msg = "Temperature value is: " + data.content + " Celsius degrees"
-
-#     #return statement(data.content)
-#     return statement(temperature_msg)
-
-# @ask.intent("HumidityIntent")
-
-# def get_humidity():
-#     sess = requests.Session()
-
-#     url = 'https://phpcourse.000webhostapp.com/humidity.txt'
-
-#     data = sess.get(url)
-     
-#     print data.content
-     
-#     print "next line is humidity"
-    
-#     humidity_msg = "Humidity value is: " + data.content + " Percentage"
-
-#     #return statement(data.content)
-#     return statement(humidity_msg)
-
-
-# if __name__ == '__main__':
-
-#     app.run(debug=True, host='0.0.0.0')

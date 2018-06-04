@@ -1,3 +1,6 @@
-TemperatureIntent temperature
-HumidityIntent humidity
-FullStatusIntent fullstatus
+TemperatureIntent give me temperature from project system
+TemperatureIntent ask project system system for temperature
+HumidityIntent give me humidity from project system
+HumidityIntent ask project system system for humidity
+FullStatusIntent give me full status from project system
+FullStatusIntent ask project system for full status
