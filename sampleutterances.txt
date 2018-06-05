@@ -2,3 +2,4 @@ TemperatureIntent ask project system for temperature
 HumidityIntent ask project system for humidity
 FullStatusIntent ask project system for full status
 ActivateIntent ask project system to activate
+DeactivateIntent ask project system to deactivate

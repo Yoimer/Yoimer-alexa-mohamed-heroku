@@ -51,9 +51,9 @@ def launch_app():
 def stop():
     return statement("Stopping the skill, thanks for using")
 
-##########activate relay##########
+##########activate LED##########
 # voice commands are:
-#Alexa, ask project system to activate relay
+#Alexa, ask project system to activate
 
 # turn system on
 @ask.intent("ActivateIntent")
@@ -103,6 +103,60 @@ def turn_on():
 
         print(turn_on_msg)
 
+        return statement(turn_on_msg)
+
+
+##########deactivate LED##########
+# voice commands are:
+#Alexa, ask project system to deactivate
+
+# turn system off
+@ask.intent("DeactivateIntent")
+
+def turn_off():
+
+    sess = requests.Session()
+
+    # read lastest state of button from ubidot
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/button/values?token=A1E-Z4kgHL1BHoC5rgQ5sH0Wcey1H8JRf1'
+     
+    data = sess.get(url)
+
+    # data as a dictionary in d
+    d = json.loads(data.content)
+    # takes the last value saved from nodemcu in ubidots
+    d_str = str(d['results'][0]['value'])
+
+    print d_str
+
+    # check whether system is OFF already
+    if '0.0' in d_str:
+
+        turn_off_msg = "LED is already deactivated. Not action taken."
+
+        print(turn_off_msg)
+
+        return statement(turn_off_msg)
+
+    # save OFF in db to be read by nodemcu
+    else:
+        sess = requests.Session()
+
+        requests.post(url, data = {'value':0.0})
+
+        data = sess.get(url)
+
+        # data as a dictionary in d
+        d = json.loads(data.content)
+        # takes the last value saved from nodemcu in ubidots
+        d_str = str(d['results'][0]['value'])
+
+        print d_str
+
+        turn_on_msg = "Deactivating LED... It might take a few seconds, please wait."
+
+        print(turn_on_msg)
+     
         return statement(turn_on_msg)
 
 ##########ask for temperature##########

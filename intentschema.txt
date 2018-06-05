@@ -4,6 +4,9 @@
       "intent": "ActivateIntent"
     },
     {
+      "intent": "DeactivateIntent"
+    },
+    {
       "intent": "TemperatureIntent"
     },
     {
