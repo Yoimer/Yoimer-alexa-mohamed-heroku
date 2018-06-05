@@ -51,6 +51,60 @@ def launch_app():
 def stop():
     return statement("Stopping the skill, thanks for using")
 
+##########activate relay##########
+# voice commands are:
+#Alexa, ask project system to activate relay
+
+# turn system on
+@ask.intent("ActivateIntent")
+
+def turn_on():
+
+    sess = requests.Session()
+
+    # read lastest state of button from ubidot
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/button/values?token=A1E-Z4kgHL1BHoC5rgQ5sH0Wcey1H8JRf1'
+     
+    data = sess.get(url)
+
+    # data as a dictionary in d
+    d = json.loads(data.content)
+    # takes the last value saved from nodemcu in ubidots
+    d_str = str(d['results'][0]['value'])
+
+    print d_str
+
+    # check whether system is ON already
+    if '1.0' in d_str:
+
+        turn_on_msg = "LED is already activated. Not action taken."
+
+        print(turn_on_msg)
+
+        return statement(turn_on_msg)
+
+    #changes states to ON  in ubidot in order to be read by Nodemcu
+    else:
+        sess = requests.Session()
+
+        # r = requests.post(url, data = data = {'value':1.0})
+        requests.post(url, data = {'value':1.0})
+
+        data = sess.get(url)
+
+        # data as a dictionary in d
+        d = json.loads(data.content)
+        # takes the last value saved from nodemcu in ubidots
+        d_str = str(d['results'][0]['value'])
+
+        print d_str
+
+        turn_on_msg = "Turning LED ON... It might take a few seconds, please wait."
+
+        print(turn_on_msg)
+
+        return statement(turn_on_msg)
+
 ##########ask for temperature##########
 # voice commands are:
 #Alexa, ask project system for temperature
@@ -61,8 +115,7 @@ def stop():
 def get_temperature():
     sess = requests.Session()
 
-    # url = 'http://things.ubidots.com/api/v1.6/devices/temperature/temperature/values?token=A1E-Z4kgHL1BHoC5rgQ5sH0Wcey1H8JRf1'
-    url = 'http://things.ubidots.com/api/v1.6/devices/temperature/temperature/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/temperature/values?token=A1E-Z4kgHL1BHoC5rgQ5sH0Wcey1H8JRf1'
 
     data = sess.get(url)
 
@@ -75,8 +128,6 @@ def get_temperature():
 
     return statement(temperature_msg)
 
-
-
 ##########ask for humidity##########
 # voice commands are:
 #Alexa, ask project system for humidity
@@ -87,8 +138,7 @@ def get_temperature():
 def get_humidity():
     sess = requests.Session()
 
-    # url = 'http://things.ubidots.com/api/v1.6/devices/humidity/humidity/values?token=A1E-Z4kgHL1BHoC5rgQ5sH0Wcey1H8JRf1'
-    url = 'http://things.ubidots.com/api/v1.6/devices/humidity/humidity/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/humidity/values?token=A1E-Z4kgHL1BHoC5rgQ5sH0Wcey1H8JRf1'
 
     data = sess.get(url)
 
@@ -116,8 +166,7 @@ def get_full_status():
     sess = requests.Session()
 
     #get temperature
-    # url = 'http://things.ubidots.com/api/v1.6/devices/temperature/temperature/values?token=A1E-Z4kgHL1BHoC5rgQ5sH0Wcey1H8JRf1'
-    url = 'http://things.ubidots.com/api/v1.6/devices/temperature/temperature/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/temperature/values?token=A1E-Z4kgHL1BHoC5rgQ5sH0Wcey1H8JRf1'
 
     data = sess.get(url)
     # data as a dictionary in d
@@ -126,8 +175,7 @@ def get_full_status():
     temp_str = str(d['results'][0]['value'])
 
     #get humidity
-    # url = 'http://things.ubidots.com/api/v1.6/devices/humidity/humidity/values?token=A1E-Z4kgHL1BHoC5rgQ5sH0Wcey1H8JRf1'
-    url = 'http://things.ubidots.com/api/v1.6/devices/humidity/humidity/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/humidity/values?token=A1E-Z4kgHL1BHoC5rgQ5sH0Wcey1H8JRf1'
 
     data = sess.get(url)
     # data as a dictionary in d
