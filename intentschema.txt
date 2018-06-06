@@ -1,11 +1,17 @@
 {
   "intents": [
     {
-      "intent": "ActivateIntent"
+      "intent": "ActivateIntentGreen"
     },
     {
-      "intent": "DeactivateIntent"
+      "intent": "ActivateIntentRed"
     },
+    {
+      "intent": "DeactivateIntentGreen"
+    },
+    {
+      "intent": "DeactivateIntentRed"
+    },    
     {
       "intent": "TemperatureIntent"
     },

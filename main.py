@@ -51,19 +51,20 @@ def launch_app():
 def stop():
     return statement("Stopping the skill, thanks for using")
 
-##########activate LED##########
-# voice commands are:
-#Alexa, ask project system to activate
 
-# turn system on
-@ask.intent("ActivateIntent")
+##########activate Green LED##########
+# voice commands are:
+#Alexa, ask project system to activate green
+
+#turn on green led
+@ask.intent("ActivateIntentGreen")
 
 def turn_on():
 
     sess = requests.Session()
 
-    # read lastest state of button from ubidot
-    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/button/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+    # read lastest state of Green LED from ubidot
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/greenled/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
      
     data = sess.get(url)
 
@@ -77,7 +78,7 @@ def turn_on():
     # check whether system is ON already
     if '1.0' in d_str:
 
-        turn_on_msg = "LED is already activated. Not action taken."
+        turn_on_msg = "Green LED is already activated. Not action taken."
 
         print(turn_on_msg)
 
@@ -99,26 +100,26 @@ def turn_on():
 
         print d_str
 
-        turn_on_msg = "Turning LED ON... It might take a few seconds, please wait."
+        turn_on_msg = "Turning.. Green LED ON... It might take a few seconds, please wait."
 
         print(turn_on_msg)
 
         return statement(turn_on_msg)
 
 
-##########deactivate LED##########
+##########deactivate Green LED##########
 # voice commands are:
-#Alexa, ask project system to deactivate
+#Alexa, ask project system to deactivate green
 
-# turn system off
-@ask.intent("DeactivateIntent")
+# turn off green led
+@ask.intent("DeactivateIntentGreen")
 
 def turn_off():
 
     sess = requests.Session()
 
     # read lastest state of button from ubidot
-    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/button/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/greenled/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
      
     data = sess.get(url)
 
@@ -132,7 +133,7 @@ def turn_off():
     # check whether system is OFF already
     if '0.0' in d_str:
 
-        turn_off_msg = "LED is already deactivated. Not action taken."
+        turn_off_msg = "Green LED is already deactivated. Not action taken."
 
         print(turn_off_msg)
 
@@ -153,11 +154,121 @@ def turn_off():
 
         print d_str
 
-        turn_on_msg = "Deactivating LED... It might take a few seconds, please wait."
+        turn_on_msg = "Deactivating Green LED... It might take a few seconds, please wait."
 
         print(turn_on_msg)
      
         return statement(turn_on_msg)
+
+
+##########activate Red LED##########
+# voice commands are:
+#Alexa, ask project system to activate red
+
+#turn on green led
+@ask.intent("ActivateIntentRed")
+
+def turn_on():
+
+    sess = requests.Session()
+
+    # read lastest state of Green LED from ubidot
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/redled/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+     
+    data = sess.get(url)
+
+    # data as a dictionary in d
+    d = json.loads(data.content)
+    # takes the last value saved from nodemcu in ubidots
+    d_str = str(d['results'][0]['value'])
+
+    print d_str
+
+    # check whether system is ON already
+    if '1.0' in d_str:
+
+        turn_on_msg = "Red LED is already activated. Not action taken."
+
+        print(turn_on_msg)
+
+        return statement(turn_on_msg)
+
+    #changes states to ON  in ubidot in order to be read by Nodemcu
+    else:
+        sess = requests.Session()
+
+        # r = requests.post(url, data = data = {'value':1.0})
+        requests.post(url, data = {'value':1.0})
+
+        data = sess.get(url)
+
+        # data as a dictionary in d
+        d = json.loads(data.content)
+        # takes the last value saved from nodemcu in ubidots
+        d_str = str(d['results'][0]['value'])
+
+        print d_str
+
+        turn_on_msg = "Turning.. Red LED ON... It might take a few seconds, please wait."
+
+        print(turn_on_msg)
+
+        return statement(turn_on_msg)
+
+
+##########deactivate Red LED##########
+# voice commands are:
+#Alexa, ask project system to deactivate red
+
+# turn off green led
+@ask.intent("DeactivateIntentRed")
+
+def turn_off():
+
+    sess = requests.Session()
+
+    # read lastest state of red led from ubidot
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/redled/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+     
+    data = sess.get(url)
+
+    # data as a dictionary in d
+    d = json.loads(data.content)
+    # takes the last value saved from nodemcu in ubidots
+    d_str = str(d['results'][0]['value'])
+
+    print d_str
+
+    # check whether system is OFF already
+    if '0.0' in d_str:
+
+        turn_off_msg = "Red LED is already deactivated. Not action taken."
+
+        print(turn_off_msg)
+
+        return statement(turn_off_msg)
+
+    # save OFF in db to be read by nodemcu
+    else:
+        sess = requests.Session()
+
+        requests.post(url, data = {'value':0.0})
+
+        data = sess.get(url)
+
+        # data as a dictionary in d
+        d = json.loads(data.content)
+        # takes the last value saved from nodemcu in ubidots
+        d_str = str(d['results'][0]['value'])
+
+        print d_str
+
+        turn_on_msg = "Deactivating Red LED... It might take a few seconds, please wait."
+
+        print(turn_on_msg)
+     
+        return statement(turn_on_msg)
+
 
 ##########ask for temperature##########
 # voice commands are:

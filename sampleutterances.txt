@@ -1,5 +1,7 @@
 TemperatureIntent ask project system for temperature
 HumidityIntent ask project system for humidity
 FullStatusIntent ask project system for full status
-ActivateIntent ask project system to activate
-DeactivateIntent ask project system to deactivate
+ActivateIntentGreen ask project system to activate green
+ActivateIntentRed ask project system to activate red
+DeactivateIntentGreen ask project system to deactivate green
+DeactivateIntentRed ask project system to deactivate red
