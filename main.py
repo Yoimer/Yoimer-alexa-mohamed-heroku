@@ -252,10 +252,10 @@ def help():
 
     help_list = [
 
+                    "turn on led say... ask project system to activate...",
+                    "turn off led say... ask project system to deactivate...",
                     "temperature say... alexa ask project system for temperature...",
-
                     "humidity say... alexa ask project system for humidity...",
-
                     "the whole variable process say... alexa ask project system for full status..."
                 ]
 
