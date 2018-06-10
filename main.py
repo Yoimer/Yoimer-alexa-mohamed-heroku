@@ -64,7 +64,7 @@ def turn_on():
     sess = requests.Session()
 
     # read lastest state of Green LED from ubidot
-    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/greenled/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/greenled/values?token=A1E-95tNybygAAxUwtncFyQ8SooDj3VFs3'
      
     data = sess.get(url)
 
@@ -119,7 +119,7 @@ def turn_off():
     sess = requests.Session()
 
     # read lastest state of button from ubidot
-    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/greenled/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/greenled/values?token=A1E-95tNybygAAxUwtncFyQ8SooDj3VFs3'
      
     data = sess.get(url)
 
@@ -173,7 +173,7 @@ def turn_on():
     sess = requests.Session()
 
     # read lastest state of Green LED from ubidot
-    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/redled/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/redled/values?token=A1E-95tNybygAAxUwtncFyQ8SooDj3VFs3'
      
     data = sess.get(url)
 
@@ -228,7 +228,7 @@ def turn_off():
     sess = requests.Session()
 
     # read lastest state of red led from ubidot
-    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/redled/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/redled/values?token=A1E-95tNybygAAxUwtncFyQ8SooDj3VFs3'
      
     data = sess.get(url)
 
@@ -280,7 +280,7 @@ def turn_off():
 def get_temperature():
     sess = requests.Session()
 
-    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/temperature/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/temperature/values?token=A1E-95tNybygAAxUwtncFyQ8SooDj3VFs3'
 
     data = sess.get(url)
 
@@ -303,7 +303,7 @@ def get_temperature():
 def get_humidity():
     sess = requests.Session()
 
-    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/humidity/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/humidity/values?token=A1E-95tNybygAAxUwtncFyQ8SooDj3VFs3'
 
     data = sess.get(url)
 
@@ -331,7 +331,7 @@ def get_full_status():
     sess = requests.Session()
 
     #get temperature
-    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/temperature/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/temperature/values?token=A1E-95tNybygAAxUwtncFyQ8SooDj3VFs3'
 
     data = sess.get(url)
     # data as a dictionary in d
@@ -340,7 +340,7 @@ def get_full_status():
     temp_str = str(d['results'][0]['value'])
 
     #get humidity
-    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/humidity/values?token=A1E-nJFpIeInVtXSpIrqa8OZ4pktloFlnl'
+    url = 'http://things.ubidots.com/api/v1.6/devices/alexa/humidity/values?token=A1E-95tNybygAAxUwtncFyQ8SooDj3VFs3'
 
     data = sess.get(url)
     # data as a dictionary in d
